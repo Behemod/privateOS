@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#Music player
+
+while [ 1 ] 
+do
+        for d in $(ls -R $1 | grep :)
+        do
+                echo ${d//:}
+                for f in ${d//:}/*
+                do
+                        case "$f" in
+                                *".ogg" | *".wav" ) if [ $(wc -c "$f" | sed 's/ .*//') -gt 500000 ]; then echo "$f" && paplay --volume=32000 "$f"; fi
+                                read -t 0.1
+                        esac
+                done
+        done
+done
