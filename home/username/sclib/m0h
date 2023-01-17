@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#Configuration module for hardware
+
+#1 example with net hw
+lshw -C network #to check connected network adapters
+echo "SUBSYSTEM==\"net\", ACTION==\"add\", ATTR{address}==\"f8:e4:3b:5c:00:36\", NAME=\"usb0\"" > /etc/udev/rules.d/20-nameoffile.rules
+udevadm control --reload-rules && udevadm trigger
