@@ -1,0 +1,27 @@
+! $Id$
+
+! load color-specific resources for clients that have them
+#ifdef COLOR
+*customization: -color
+#endif
+
+! make Xaw (Athena widget set) clients understand the delete key
+! this causes problems with some non-Xaw apps, use with care
+! *Text.translations: #override ~Shift ~Meta <Key>Delete: delete-next-character()
+
+!MY SECTION, DO NOT ENTER!
+
+xterm*font: *-fixed-*-*-*-*-18-*-*-*-*-*-iso10646-1
+xterm*locale: true
+xterm*utf8: 1
+!xterm.vt100.background: green
+*.vt100.metaSendsEscape: true
+*.vt100.translations: #override \n\
+        Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+        Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+        Shift <KeyPress> Home : scroll-to(begin) \n\
+        Shift <KeyPress> End : scroll-to(end) \n\
+        Ctrl Shift <KeyPress> Up : scroll-back(1,line) \n\
+        Ctrl Shift <KeyPress> Down : scroll-forw(1,line) \n\
+        Ctrl Alt <Key>S: secure()
+!After making changes load this file with xrdb -load /etc/X11/Xresources/x11-common
