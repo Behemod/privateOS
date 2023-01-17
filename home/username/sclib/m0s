@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#Suspend module
+
+sh -c "echo mem > /sys/power/state"
+systemctl restart systemd-networkd && systemctl restart openvpn
