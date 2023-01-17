@@ -196,10 +196,10 @@ bindsym Mod4+r mode "resize"
 #bindsym Mod4+g exec echo $DISPLAY | wall
 
 #Suspend
-bindsym --release Mod4+F6 exec sudo /home/edness/sclib/m0s
+bindsym --release Mod4+F6 exec sudo /home/username/sclib/m0s
 
 #Screenshots
-bindsym --release Print exec scrot -s '/home/edness/Pictures/Screenshots/scrot_from_%Y-%m-%d_%H-%M-%S.png' -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym --release Print exec scrot -s '/home/username/Pictures/Screenshots/scrot_from_%Y-%m-%d_%H-%M-%S.png' -e 'xclip -selection clipboard -t image/png -i $f'
 
 #Monitor controller
 exec --no-startup-id xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
