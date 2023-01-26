@@ -192,14 +192,13 @@ mode "resize" {
 bindsym Mod4+r mode "resize"
 
 #Test
-#bindsym Mod4+g exec sudo sh -c "echo mem > /sys/power/state"
-#bindsym Mod4+g exec echo $DISPLAY | wall
+#bindsym Mod4+g exec zenity --info --text="Hi"
 
 #Suspend
-bindsym --release Mod4+F6 exec sudo /home/username/sclib/m0s
+bindsym --release Mod4+F6 exec sudo /home/edness/sclib/m0s
 
 #Screenshots
-bindsym --release Print exec scrot -s '/home/username/Pictures/Screenshots/scrot_from_%Y-%m-%d_%H-%M-%S.png' -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym --release Print exec scrot -s '/home/edness/Pictures/Screenshots/scrot_from_%Y-%m-%d_%H-%M-%S.png' -e 'xclip -selection clipboard -t image/png -i $f'
 
 #Monitor controller
 exec --no-startup-id xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
@@ -207,15 +206,15 @@ bindsym --release F4 exec  xrandr --output eDP --primary --brightness 1 --mode 1
 bindsym --release Mod4+F4 exec xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
 
 #Display brightness
-bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')-0.1"|bc)
-bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc)
+bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')-0.1"|bc) && notify-send -t 2000 -i /home/edness/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
+bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc) && notify-send -t 2000 -i /home/edness/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
 
 #Sound retart when reconnecting devices
 bindsym --release Mod4+F1 exec pulseaudio -k && sleep 1 && pulseaudio --start && sleep 1 && pactl set-sink-volume @DEFAULT_SINK@ 100%
 
-#Sound volume cotroller, my default sink is 0 and in /etc/pulse/default.pa almost at the end
-bindsym --release Mod1+F3 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym --release Mod1+F2 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+#Sound volume cotroller, my default sink and in /etc/pulse/default.pa almost at the end
+bindsym --release Mod1+F3 exec pactl set-sink-volume @DEFAULT_SINK@ +10% && notify-send -t 2000 -i /home/edness/Pictures/Icons/vl.png -h string:x-canonical-private-synchronous:anything $(pactl get-sink-volume @DEFAULT_SINK@|sed -z 's/.*\s\([0-9]*%\)\s.*/\1/')
+bindsym --release Mod1+F2 exec pactl set-sink-volume @DEFAULT_SINK@ -10% && notify-send -t 2000 -i /home/edness/Pictures/Icons/vl.png -h string:x-canonical-private-synchronous:anything $(pactl get-sink-volume @DEFAULT_SINK@|sed -z 's/.*\s\([0-9]*%\)\s.*/\1/')
 bindsym --release Mod1+F1 exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Start i3bar to display a workspace bar (plus the system information i3status
