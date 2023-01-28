@@ -24,4 +24,4 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-0 8,17 * * * export XDG_RUNTIME_DIR=/run/user/1000 && paplay /home/edness/Music/mixkit-clock-tower-or-cathedral-bell-587.wav --volume=$(($(pactl get-sink-volume @DEFAULT_SINK@|sed 's/.*\s\([0-9]*\)\s.*/\1/') / 5 )) >/dev/null 2>&1
+0 8,17 * * * export XDG_RUNTIME_DIR=/run/user/1000 && paplay /home/username/Music/mixkit-clock-tower-or-cathedral-bell-587.wav --volume=$(($(pactl get-sink-volume @DEFAULT_SINK@|sed 's/.*\s\([0-9]*\)\s.*/\1/') / 5 )) >/dev/null 2>&1
