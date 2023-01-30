@@ -1,0 +1,35 @@
+#!/bin/bash
+# description: sleep service ^^
+# dont forget: sudo update-rc.d csleep defaults
+
+
+start() {
+    echo "echo"
+    # code to start app comes here 
+    # example: daemon program_name &
+}
+
+stop() {
+    echo "echoes"
+    # code to stop app comes here 
+    # example: killproc program_name
+}
+
+case "$1" in
+    start)
+       start
+       ;;
+    stop)
+       stop
+       ;;
+    restart)
+       stop
+       start
+       ;;
+    status)
+       ;;
+    *)
+       echo "Usage... : $0 {start|stop|status|restart}"
+esac
+
+exit 0
