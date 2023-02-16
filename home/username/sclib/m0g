@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#Git auth module
+
+br=$3
+host=$4
+repo=$2
+if [ -z "$1" ]; then
+    com=debug
+else
+    com=$1
+fi
+
+#echo "[user]
+#   name = Me
+#   email = mail" > .gitconfig
+#
+#echo "[includeIf "gitdir:~/Projects/Work/git/"]
+#   path = /home/user/Projects/Work/git/.gitconfig" > ~/.gitconfig
+#
+#ssh-keygen -t ed25519
+
+eval `ssh-agent -s`
+ssh-add ~/Projects/Work/.ssh/id_ed25519
+if ! [ -d "./.git" ]; then
+    git init -b $br
+    git remote add origin git@$host:$repo
+fi
+git add .
+git commit -am "$com"
+git push origin $(git branch | sed 's/\*\s//')
