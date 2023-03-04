@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#WiFi tests
+
+#Initial setup
+# iw phy0 interface add w0 type managed #add new network interface card(NIC) from hardware device phy0 (lshw(lspci -vv|grep net -i -n -B 1 -A 68))
+# iw dev w0 interface add wlan0 type station #add second wifi connection
+# ifconfig -a
+# iw dev wlan0 del #delete wlan0
+# ip link set dev w0 address 00:00:00:00:00:01 #change mac
+
+#Add new wifi ssid connection with netplan
+#1=ssid; 2=password
+echo 'Enter ssid: ' && read ssid
+echo 'Enter password: ' && read pwd
+sed '/^[^#]*access-points\:$/a \
+\        \"'$ssid'\"\:\n          password\: \"'$pwd'\"' -i /etc/netplan/0.yaml
+netplan apply
+
+#TODO: make hotspot like everyone else
