@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#Executable module
+
+chmod +100 $(dirname $0)/m*
