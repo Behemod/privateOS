@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#Virtual server management
+
+#Run from virtual machine
+#mount -l to see mounted devices
+mount -t vboxsf -o uid=33,gid=33 share /var/www/html/ #to run debugging apache server
+# umount /var/www/html
+
+#backup
+#mount -t vboxsf share /media
+#cp -r /media/. /var/www/html
+#chown www-data:www-data -R /var/www/html
+#umount /media
+#backup
