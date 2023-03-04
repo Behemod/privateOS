@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#Mem liberation module
+#WARNING: Last time i used it, system ungracefully rebooted after some time!
+
+sync
+echo 3 > /proc/sys/vm/drop_caches
+# free
