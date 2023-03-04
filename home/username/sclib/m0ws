@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#Web server module
+
+#SMTP postfix
+export DEBIAN_FRONTEND=noninteractive
+debconf-set-selections <<< "postfix postfix/mailname string 'mail.localhost'"
+debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
+apt update
+apt upgrade -y
+apt install -y mailutils
+
+DOMAIN=website
+ARR=(smtpd_tls_cert_file smtpd_tls_key_file)
+smtpd_tls_cert_file=/etc/letsencrypt/live/$DOMAIN/fullchain.pem
+smtpd_tls_key_file=/etc/letsencrypt/live/$DOMAIN/privkey.pem
+for i in ${!ARR[@]}; do
+sed "s,\(${ARR[$i]}=\)\S*,\1${!ARR[$i]}," -i /etc/postfix/main.cf
+done
+service postfix restart
+
+{ echo "From: Mein@.";echo "To: Not_you@mail.mail";echo "Subject: Object";echo "Date: 1970.01.01";echo "Message-Id: <not_right_id@mx>";echo "Body of message!";echo "Some: AAA"; } | sendmail mail@mail.mail
