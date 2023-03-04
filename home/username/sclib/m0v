@@ -1,0 +1,45 @@
+#!/bin/sh
+
+#VM creation
+
+#1="name of vm"
+vboxmanage unregistervm --delete "$1"
+cd /mnt/vm
+vboxmanage createvm --name $1 --basefolder /mnt/vm/ --register
+cd $1
+vboxmanage modifyvm "$1" --ostype ubuntu_64 --memory 2048 --vrde on --vrdeauthtype null #To use on network: --vrdeauthtype external (tls) with VBox certificate
+vboxmanage createhd --filename "$1.vdi" --size 10000
+vboxmanage storagectl "$1" --name "IDE controller" --add ide --controller PIIX4
+vboxmanage storageattach "$1" --storagectl "IDE controller" --port 0 --device 0 --type hdd --medium "$1.vdi"
+vboxmanage storageattach "$1" --storagectl "IDE controller" --port 0 --device 1 --type dvddrive --medium /mnt/iso/ubuntu-22.04.1-live-server-amd64.iso
+vboxmanage sharedfolder add "$1" --name "share" --hostpath "/home/user/vbox" --automount
+#for guest(if automount didnt work): mount -t vboxsf -o uid=$UID,gid=$GID share mountpoint, where $UID is id -u name of user, who will be using this mount, same for group
+
+#VM configuration
+
+# vboxmanage modifyvm $1 --nic1 bridged --bridgeadapter1 $(networkctl list | grep '.*configured' | sed 's/^\s\s\S\s\(\S*\).*/\1/') #Add just plain second device to your network with your mac
+vboxmanage modifyvm $1 --nic1 nat #Default machine in the machine, when you need line below!
+vboxmanage modifyvm $1 --natpf1 http,tcp,,80,,80 #Add number 1 rule: http server forwarding from guest to host
+# vboxmanage controlvm $1 natpf1 http,tcp,,80,,80 #Same, but on working vm
+
+# #VM start up
+
+# vboxheadless --startvm "$1"
+# rdesktop -a 16 -N localhost:3389
+
+
+# #VM cloning
+
+# vboxmanage clonevm $1 --basefolder=/mnt/vm/ --name=$2 --register --snapshot=$3
+
+
+# #[VBox certificate
+# openssl req -new -x509 -days 365 -extensions v3_ca -keyout ca_key_private.pem -out ca_cert.pem #Create a CA self signed certificate.
+# openssl genrsa -out server_key_private.pem #Generate a server private key.
+# openssl req -new -key server_key_private.pem -out server_req.pem #Generate a request for signing.
+# openssl x509 -req -days 365 -in server_req.pem -CA ca_cert.pem -CAkey ca_key_private.pem -set_serial 01 -out server_cert.pem #Generate the server certificate.
+
+# vboxmanage modifyvm VM-name --vrde-property "Security/CACertificate=path/ca_cert.pem"
+# vboxmanage modifyvm VM-name --vrde-property "Security/ServerCertificate=path/server_cert.pem"
+# vboxmanage modifyvm VM-name --vrde-property "Security/ServerPrivateKey=path/server_key_private.pem"
+# #]
