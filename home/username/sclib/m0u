@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#Purger(uninstaller)
+
+list="mailutils postfix dovecot-imapd dovecot-pop3d"
+for p in $list
+do
+    apt-get purge -y $p\*
+done
+apt-get autopurge -y
+apt-get autoclean
