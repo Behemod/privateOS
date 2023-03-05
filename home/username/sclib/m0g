@@ -16,7 +16,7 @@ fi
 #   email = mail" > .gitconfig
 #
 #echo "[includeIf "gitdir:~/Projects/Work/git/"]
-#   path = /home/user/Projects/Work/git/.gitconfig" > ~/.gitconfig
+#   path = /home/username/Projects/Work/git/.gitconfig" > ~/.gitconfig
 #
 #ssh-keygen -t ed25519
 

@@ -192,7 +192,7 @@ mode "resize" {
 bindsym Mod4+r mode "resize"
 
 #Test
-#bindsym Mod4+g exec zenity --info --text="Hi"
+#bindsym Mod4+g exec sleep 2 && notify-send $(xprintidle)
 
 #Suspend
 bindsym --release Mod4+F6 exec sudo /home/username/sclib/m0s
@@ -210,7 +210,8 @@ bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|gre
 bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc) && notify-send -t 2000 -i /home/username/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
 
 #Sound retart when reconnecting devices
-bindsym --release Mod4+F1 exec pulseaudio -k && sleep 1 && pulseaudio --start && sleep 1 && pactl set-sink-volume @DEFAULT_SINK@ 100%
+exec --no-startup-id pulseaudio -k && sleep 1 && pulseaudio --start && sleep 1 && pactl set-sink-volume @DEFAULT_SINK@ 100%
+bindsym --release Mod4+F1 exec pulseaudio -k && sleep 1 && pulseaudio --start
 
 #Sound volume cotroller, my default sink and in /etc/pulse/default.pa almost at the end
 bindsym --release Mod1+F3 exec pactl set-sink-volume @DEFAULT_SINK@ +10% && notify-send -t 2000 -i /home/username/Pictures/Icons/vl.png -h string:x-canonical-private-synchronous:anything $(pactl get-sink-volume @DEFAULT_SINK@|sed -z 's/.*\s\([0-9]*%\)\s.*/\1/')

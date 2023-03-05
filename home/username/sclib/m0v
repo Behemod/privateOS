@@ -12,7 +12,7 @@ vboxmanage createhd --filename "$1.vdi" --size 10000
 vboxmanage storagectl "$1" --name "IDE controller" --add ide --controller PIIX4
 vboxmanage storageattach "$1" --storagectl "IDE controller" --port 0 --device 0 --type hdd --medium "$1.vdi"
 vboxmanage storageattach "$1" --storagectl "IDE controller" --port 0 --device 1 --type dvddrive --medium /mnt/iso/ubuntu-22.04.1-live-server-amd64.iso
-vboxmanage sharedfolder add "$1" --name "share" --hostpath "/home/user/vbox" --automount
+vboxmanage sharedfolder add "$1" --name "share" --hostpath "/home/username/vbox" --automount
 #for guest(if automount didnt work): mount -t vboxsf -o uid=$UID,gid=$GID share mountpoint, where $UID is id -u name of user, who will be using this mount, same for group
 
 #VM configuration
