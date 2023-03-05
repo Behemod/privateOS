@@ -1,43 +1,42 @@
-#!/bin/sh
+#!/bin/bash
 
 #Timer module for work time in Notes.txt
 
-path=''
+path="$(pwd)/.."
 keypress=''
 init=$(cat $path/Notes.txt | grep "work time:" | sed 's/work\stime:\s//')
+pat="[0-9]+:[0-9]+:[0-9]+"
+if [[ ! $init =~ $pat ]]; then
+    init="0:00:00"
+fi
 h=$(echo $init | sed 's/\([0-9]*\):.*/\1/')
 m=$(echo $init | sed 's/.*:\([0-9]*\):.*/\1/')
 s=$(echo $init | sed 's/.*:\([0-9]*\)/\1/')
-sec=$(($h * 3600 + $m * 60 + $s))
+sec=$((10#$h * 3600 + 10#$m * 60 + 10#$s))
 
 while [ "$keypress" = "" ]; do
+    ((sec++))
     case $(ps -o stat= -p $$) in
         *+*) read -t 1 -n 1 keypress; echo -ne $sec' Press any button to stop timer!\r' ;;
         *) sleep 1 ;;
     esac
-    ((sec++))
 done
 
 h=$(($sec / 3600))
 m=$(($sec / 60 % 60))
 s=$(($sec % 60))
 # for i in h m s; do
-#       v=${!i}
-#       if [ ${#v} = 1 ]; then
-#               $i="0$v"
-#       fi
-#       echo ${!i}
+#   v=${!i}
+#   if [ ${#v} = 1 ]; then
+#       $i="0$v"
+#   fi
+#   echo ${!i}
 # done
 if [ ${#m} = 1 ]; then
-        m="0$m"
+    m="0$m"
 fi
 if [ ${#s} = 1 ]; then
-        s="0$s"
-fi
-if [ ${#h} -gt 0 ]; then
-    result="$h:$m:$s"
-else
-    result="$m:$s"
+    s="0$s"
 fi
 result="$h:$m:$s"
-sed "s/\(work\stime:\s\).*/\1$result/" -i $path/Notes.txt
+sed "s/\(work\stime:\).*/\1 $result/" -i $path/Notes.txt
