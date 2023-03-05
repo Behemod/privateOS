@@ -2,17 +2,37 @@
 
 #Music player
 
-while [ 1 ] 
-do
-        for d in $(ls -R $1 | grep :)
+case "$1" in
+
+    #Local music player
+    "1" )
+        while [ 1 ] 
         do
-                echo ${d//:}
-                for f in ${d//:}/*
+            for d in $(ls -R $2 | grep :)
+            do
+                echo ${d/:}
+                for f in ${d/:}/*
                 do
-                        case "$f" in
-                                *".ogg" | *".wav" ) if [ $(wc -c "$f" | sed 's/ .*//') -gt 500000 ]; then echo "$f" && paplay --volume=32000 "$f"; fi
-                                read -t 0.1
-                        esac
+                    case "$f" in
+                        *".ogg" | *".wav" ) if [ $(wc -c "$f" | sed 's/ .*//') -gt 500000 ]; then echo $f && paplay --volume=32000 "$f"; fi
+                        read -t 0.1
+                    esac
                 done
+            done
         done
-done
+    ;;
+
+    #Web music player
+    "2" )
+        # mpv --no-video "https://www.youtube.com/results?search_query=music&sp=CAM%253D" #it takes about 1 minute to start
+        # mpv "$(yt-dlp -f 140 --match-filter 'duration > 60' -g 'https://www.youtube.com/results?search_query=music&sp=CAM%253D')" #same here
+        # mpv --no-video --af=volume=50:replaygain=track:replaygain-preamp=0:volume=0 --lavfi-complex='[length>60][v]' --ytdl-raw-options="format=bestaudio[protocol^=http],--match-filter='duration > 60'" "https://www.youtube.com/results?search_query=music&sp=CAM%253D" #same
+        if [ -z "$2" ]; then
+            url="https://www.youtube.com/results?search_query=music&sp=CAM%253D"
+        else
+            url=$2
+        fi
+        mpv --no-video --af=volume=0.50 --ytdl-raw-options="format=bestaudio[protocol^=http],match-filter=duration > 60" $url
+    ;;
+
+esac
