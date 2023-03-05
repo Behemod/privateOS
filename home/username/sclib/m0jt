@@ -11,11 +11,11 @@ s=$(echo $init | sed 's/.*:\([0-9]*\)/\1/')
 sec=$(($h * 3600 + $m * 60 + $s))
 
 while [ "$keypress" = "" ]; do
-        case $(ps -o stat= -p $$) in
-                *+*) read -t 1 -n 1 keypress; echo -ne $sec' Press any button to stop timer!\r' ;;
-                *) sleep 1 ;;
-        esac
-        ((sec++))
+    case $(ps -o stat= -p $$) in
+        *+*) read -t 1 -n 1 keypress; echo -ne $sec' Press any button to stop timer!\r' ;;
+        *) sleep 1 ;;
+    esac
+    ((sec++))
 done
 
 h=$(($sec / 3600))
@@ -33,6 +33,11 @@ if [ ${#m} = 1 ]; then
 fi
 if [ ${#s} = 1 ]; then
         s="0$s"
+fi
+if [ ${#h} -gt 0 ]; then
+    result="$h:$m:$s"
+else
+    result="$m:$s"
 fi
 result="$h:$m:$s"
 sed "s/\(work\stime:\s\).*/\1$result/" -i $path/Notes.txt
