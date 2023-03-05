@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+import time
+
+h = m = s = 0
+while(True):
+    time_str = 'Time: %d:%d:%d' % (h, m, s)
+    print(time_str.ljust(len(time_str)+2), end='\r')
+    time.sleep(1)
+    s += 1
+    if s == 60:
+        s = 0
+        m += 1
+    if m == 60:
+        m = 0
+        h += 1
