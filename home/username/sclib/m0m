@@ -28,11 +28,12 @@ case "$1" in
         # mpv "$(yt-dlp -f 140 --match-filter 'duration > 60' -g 'https://www.youtube.com/results?search_query=music&sp=CAM%253D')" #same here
         # mpv --no-video --af=volume=50:replaygain=track:replaygain-preamp=0:volume=0 --lavfi-complex='[length>60][v]' --ytdl-raw-options="format=bestaudio[protocol^=http],--match-filter='duration > 60'" "https://www.youtube.com/results?search_query=music&sp=CAM%253D" #same
         if [ -z "$2" ]; then
-            url="https://www.youtube.com/results?search_query=music&sp=CAM%253D"
+            url="https://www.youtube.com/results?search_query=music+from+the+80s&sp=CAM%253D"
         else
             url=$2
         fi
-        mpv --no-video --af=volume=0.50 --ytdl-raw-options="format=bestaudio[protocol^=http],match-filter=duration > 60" $url
+        # mpv --no-video --af=volume=0.2 --ytdl-raw-options="format=bestaudio[protocol^=http],match-filter=duration > 60" $url
+        yt-dlp -f 140 --match-filter 'duration > 60' -g $url | while IFS= read -r line; do mpv --no-video --af=volume=0.2 $line; done
     ;;
 
 esac

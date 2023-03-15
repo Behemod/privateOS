@@ -1,16 +1,31 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import time
+import os
 
-h = m = s = 0
+def alarm():
+    global s
+    os.system("paplay --volume=24000 /home/username/Music/mixkit-clock-tower-or-cathedral-bell-587.wav")
+    s = 29
+
+h = m = s = w = f = 0
 while(True):
-    time_str = 'Time: %d:%d:%d' % (h, m, s)
+    time_str = 'Time: %d:%02d:%02d' % (h, m, s)
     print(time_str.ljust(len(time_str)+2), end='\r')
     time.sleep(1)
     s += 1
+    w += 1
     if s == 60:
         s = 0
         m += 1
     if m == 60:
         m = 0
         h += 1
+    if w == 5400 and f == 0:
+        alarm()
+        f = 1
+        w = 0
+    if w == 900 and f == 1:
+        alarm()
+        f = 0
+        w = 0
