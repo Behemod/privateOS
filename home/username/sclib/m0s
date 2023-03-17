@@ -11,8 +11,8 @@ else
 fi
 
 while [[ $(systemctl is-active csleep) == "active" ]]; do
-    sleep 360
-    if [[ $(xprintidle) -gt "360000" ]]; then
+    sleep 60
+    if [[ $(xprintidle) -gt "60000" ]]; then
         sh -c "echo mem > /sys/power/state"
         systemctl restart systemd-networkd && systemctl restart openvpn
     fi
