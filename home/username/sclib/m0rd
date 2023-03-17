@@ -18,6 +18,6 @@ if [ -z "$3" ]; then
         host=$3
 fi
 
-xfreerdp /u:$user /p:$pw /v:$host /f /audio /video /bitmap-cache /gfx:rfx +gfx-progressive +gfx-small-cache +gfx-thin-client /compression-level:2
+xfreerdp /u:$user /p:$pw /v:$host /f /audio /video /bitmap-cache /gfx:rfx +gfx-progressive +gfx-small-cache +gfx-thin-client /compression-level:2 +auto-reconnect
 
 # To leave fullscrean press ctrl+alt+enter
