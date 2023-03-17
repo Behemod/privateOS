@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#Remote desktop connection
+
+if [ -z "$1" ]; then
+        user=User
+    else
+        user=$1
+fi
+if [ -z "$2" ]; then
+        pw=
+    else
+        pw=$2
+fi
+if [ -z "$3" ]; then
+        host=192.168.10.13
+    else
+        host=$3
+fi
+
+xfreerdp /u:$user /p:$pw /v:$host /f /audio /video /bitmap-cache /gfx:rfx +gfx-progressive +gfx-small-cache +gfx-thin-client /compression-level:2
+
+# To leave fullscrean press ctrl+alt+enter
