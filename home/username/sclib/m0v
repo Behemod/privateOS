@@ -8,6 +8,7 @@ cd /mnt/vm
 vboxmanage createvm --name $1 --basefolder /mnt/vm/ --register
 cd $1
 vboxmanage modifyvm "$1" --ostype ubuntu_64 --memory 2048 --vrde on --vrdeauthtype null #To use on network: --vrdeauthtype external (tls) with VBox certificate
+vboxmanage modifyvm "$1" --vram 64
 vboxmanage createhd --filename "$1.vdi" --size 10000
 vboxmanage storagectl "$1" --name "IDE controller" --add ide --controller PIIX4
 vboxmanage storageattach "$1" --storagectl "IDE controller" --port 0 --device 0 --type hdd --medium "$1.vdi"
