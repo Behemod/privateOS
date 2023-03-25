@@ -7,7 +7,7 @@ vboxmanage unregistervm --delete "$1"
 cd /mnt/vm
 vboxmanage createvm --name $1 --basefolder /mnt/vm/ --register
 cd $1
-vboxmanage modifyvm "$1" --ostype ubuntu_64 --memory 2048 --vrde on --vrdeauthtype null #To use on network: --vrdeauthtype external (tls) with VBox certificate
+vboxmanage modifyvm "$1" --ostype ubuntu_64 --memory 2048 # --vrde on --vrdeauthtype null #To use on network: --vrdeauthtype external (tls) with VBox certificate. TODO: stopped working, fix
 vboxmanage modifyvm "$1" --vram 64
 vboxmanage createhd --filename "$1.vdi" --size 10000
 vboxmanage storagectl "$1" --name "IDE controller" --add ide --controller PIIX4
@@ -27,7 +27,7 @@ vboxmanage modifyvm $1 --natpf1 http,tcp,,80,,80 #Add number 1 rule: http server
 
 # vboxheadless --startvm "$1"
 # rdesktop -a 16 -N localhost:3389
-
+vboxmanage startvm $1
 
 # #VM cloning
 
