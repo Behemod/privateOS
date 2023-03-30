@@ -56,4 +56,5 @@ endif
 " User system-wide addition:
 map <C-X> :q <CR>
 map <C-E> :E <CR>
+map <C-W> :w <CR>
 set tabstop=4
