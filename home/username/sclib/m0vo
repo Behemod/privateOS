@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#Voice module
+
+# just speak manual out loud
+man man | spd-say -i -50 -e -r -50 -w
