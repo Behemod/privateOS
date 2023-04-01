@@ -34,7 +34,7 @@ case "$1" in
         fi
         # mpv --no-video --af=volume=0.2 --ytdl-raw-options="format=bestaudio[protocol^=http],match-filter=duration > 60" $url
         # yt-dlp -f 140 --match-filter 'duration > 60' -g $url | while IFS= read -r line; do mpv --no-video --af=volume=0.2 $line; done
-        yt-dlp -f 140 --match-filter 'duration > 60' -g $url | while IFS= read -r line; do wget -O- $line | ffplay -nodisp -nostats -hide_banner -volume 11 -; done
+        yt-dlp -f 140 --match-filter 'duration > 60' -g $url | while IFS= read -r line; do wget -O- $line | ffplay -nodisp -nostats -hide_banner -af dynaudnorm -volume 11 -; done
     ;;
 
 esac
