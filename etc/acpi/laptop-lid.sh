@@ -4,7 +4,7 @@
 
 cat /proc/acpi/button/lid/LID/state | grep closed -q
 if [[ $? -eq 0 ]]; then
-        while grep -q closed /proc/acpi/button/lid/LID/state
+        while grep -q closed /proc/acpi/button/lid/LID/state && ! grep -qw connected /sys/class/drm/card0/*HDMI*/status
         do
                 sh -c "echo mem > /sys/power/state"
         done
