@@ -206,8 +206,8 @@ bindsym --release F4 exec  xrandr --output eDP --primary --brightness 1 --mode 1
 bindsym --release Mod4+F4 exec xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
 
 #Display brightness
-bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')-0.1"|bc) && notify-send -t 2000 -i /home/edness/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
-bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc) && notify-send -t 2000 -i /home/edness/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
+bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')-0.1"|bc) && notify-send -t 2000 -i /home/username/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
+bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc) && notify-send -t 2000 -i /home/username/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
 
 #Sound retart when reconnecting devices
 exec_always --no-startup-id pulseaudio --start && sleep 1 && pactl set-sink-volume @DEFAULT_SINK@ 100%
