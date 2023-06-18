@@ -201,16 +201,16 @@ bindsym --release Mod4+F6 exec sudo /home/username/sclib/m0s
 bindsym --release Print exec scrot -s '/home/username/Pictures/Screenshots/scrot_from_%Y-%m-%d_%H-%M-%S.png' -e 'xclip -selection clipboard -t image/png -i $f'
 
 #Monitor controller
-exec --no-startup-id xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
+exec_always --no-startup-id xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
 bindsym --release F4 exec  xrandr --output eDP --primary --brightness 1 --mode 1920x1080 --output HDMI-A-0 --off
 bindsym --release Mod4+F4 exec xrandr --output HDMI-A-0 --primary --brightness 1 --mode 2560x1440 --output eDP --off
 
 #Display brightness
-bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')-0.1"|bc) && notify-send -t 2000 -i /home/username/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
-bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc) && notify-send -t 2000 -i /home/username/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
+bindsym --release Mod1+F4 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')-0.1"|bc) && notify-send -t 2000 -i /home/edness/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
+bindsym --release Mod1+F5 exec xrandr --output $(xrandr --listactivemonitors|grep 0:|sed 's/^.*\s//') --brightness $(echo "$(xrandr --verbose|grep Brightness|sed 's/.*\s//')+0.1"|bc) && notify-send -t 2000 -i /home/edness/Pictures/Icons/br.png -h string:x-canonical-private-synchronous:anything $(xrandr --verbose|grep Brightness|sed 's/.*\s//')
 
 #Sound retart when reconnecting devices
-exec --no-startup-id pulseaudio -k && sleep 1 && pulseaudio --start && sleep 1 && pactl set-sink-volume @DEFAULT_SINK@ 100%
+exec_always --no-startup-id pulseaudio --start && sleep 1 && pactl set-sink-volume @DEFAULT_SINK@ 100%
 bindsym --release Mod4+F1 exec pulseaudio -k && sleep 1 && pulseaudio --start
 
 #Sound volume cotroller, my default sink and in /etc/pulse/default.pa almost at the end
