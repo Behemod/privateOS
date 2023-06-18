@@ -4,8 +4,11 @@
 
 cat /proc/acpi/button/lid/LID/state | grep closed -q
 if [[ $? -eq 0 ]]; then
-    sh -c "echo mem > /sys/power/state"
-    systemctl restart systemd-networkd && systemctl restart openvpn
+        while grep -q closed /proc/acpi/button/lid/LID/state
+        do
+                sh -c "echo mem > /sys/power/state"
+        done
+        systemctl restart systemd-networkd && systemctl restart openvpn
 fi
 
 # Dont forget make it executable
